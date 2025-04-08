@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InvernaderoInteligenteMovil.Views.NuevaContrasena"
+             Title="NuevaContrasena"
+             NavigationPage.HasNavigationBar="False">
+
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <!-- Logo superior -->
+            <Image Source="https://imgfz.com/i/MmIlSvA.png" HeightRequest="80" Margin="0,-55,390,0"/>
+            <Image Source="https://imgfz.com/i/Pn2aI0L.png" HeightRequest="80" Margin="0,10,0,0"/>
+
+            <Label Text="Crea tu nueva"
+                   FontAttributes="Bold"
+                   FontSize="40"
+                   Margin="90,20,0,0"/>
+
+            <Label Text="Contraseña"
+                   FontSize="40"
+                   Margin="110,-13,0,0"/>
+
+            <Label Text="Elige una nueva contraseña"
+                   FontSize="18"
+                   Margin="110,0,0,40"/>
+
+            <!-- Sección de entrada de contraseña -->
+            <Frame BackgroundColor="#576b43" CornerRadius="45" Margin="-11,-15,-11,0" HeightRequest="510">
+                <StackLayout>
+
+                    <!-- Nueva Contraseña -->
+                    <Label Text="Nueva Contraseña" TextColor="White" FontSize="18" Margin="30,40,0,0"/>
+                    <Frame BackgroundColor="#576b43" CornerRadius="40" HeightRequest="80"
+                           HorizontalOptions="FillAndExpand" Margin="20,10,20,0" BorderColor="White">
+                        <Grid>
+                            <Image Source="https://imgfz.com/i/VlRLZru.png" WidthRequest="26" Margin="-337,0,0,0"/>
+                            <Entry x:Name="NuevaClave" Placeholder="Introduce tu nueva contraseña"
+                                   PlaceholderColor="White" Margin="20,0,0,0" TextColor="White" IsPassword="True"
+                                   Text="{Binding NuevaContrasena}"/>
+                            <ImageButton x:Name="BtnVerClave"
+                                         Source="eye_icon.png"
+                                         WidthRequest="30"
+                                         HeightRequest="30"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="Center"
+                                         Margin="0,0,10,0"
+                                         />
+                        </Grid>
+                    </Frame>
+
+                    <!-- Confirmar Contraseña -->
+                    <Label Text="Confirmar Contraseña" TextColor="White" FontSize="18" Margin="30,40,0,0"/>
+                    <Frame BackgroundColor="#576b43" CornerRadius="40" HeightRequest="80"
+                           HorizontalOptions="FillAndExpand" Margin="20,10,20,0" BorderColor="White">
+                        <Grid>
+                            <Image Source="https://imgfz.com/i/VlRLZru.png" WidthRequest="26" Margin="-337,0,0,0"/>
+                            <Entry x:Name="ConfirmarClave" Placeholder="Confirma tu contraseña"
+                                   PlaceholderColor="White" Margin="20,0,0,0" TextColor="White" IsPassword="True"
+                                   Text="{Binding ConfirmarContrasena}"/>
+                            <ImageButton x:Name="BtnVerConfirmarClave"
+                                         Source="eye_icon.png"
+                                         WidthRequest="30"
+                                         HeightRequest="30"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="Center"
+                                         Margin="0,0,10,0"
+                                         />
+                        </Grid>
+                    </Frame>
+
+                    <!-- Mensaje de error -->
+                    <Label x:Name="ErrorLabel"
+                           Text=""
+                           TextColor="Red"
+                           FontSize="16"
+                           HorizontalTextAlignment="Center"
+                           Margin="0,10,0,0"/>
+
+                    <!-- Botón de guardar -->
+                    <Button Text="Guardar Contraseña"
+                            TextColor="White"
+                            Margin="17,15,17,0"
+                            CornerRadius="40"
+                            HeightRequest="80"
+                            HorizontalOptions="Fill"
+                            BackgroundColor="#7a9255"
+                            FontSize="18"
+                            Command="{Binding CambiarContrasenaCommand}"
+                            />
+
+                </StackLayout>
+            </Frame>
+
+            <Label Text="Volver al inicio de sesión"
+                   Margin="0,-55,0,0"
+                   HorizontalTextAlignment="Center"
+                   TextColor="White"
+                   TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding IrLoginCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

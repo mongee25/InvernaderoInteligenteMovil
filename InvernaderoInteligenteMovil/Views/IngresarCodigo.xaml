@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InvernaderoInteligenteMovil.Views.IngresarCodigo"
+             Title="IngresarCodigo"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions="Auto, *">
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="0,40,0,0">
+
+                <!-- Logo y encabezados -->
+                <Image Source="https://imgfz.com/i/MmIlSvA.png" HeightRequest="80" Margin="0,-55,390,0"/>
+                <Image Source="https://imgfz.com/i/Pn2aI0L.png" HeightRequest="80" Margin="0,10,0,0"/>
+
+                <Label Text="Ingresa el"
+                       FontAttributes="Bold"
+                       FontSize="40"
+                       HorizontalOptions="Center"/>
+
+                <Label Text="Código"
+                       FontSize="40"
+                       HorizontalOptions="Center"
+                       Margin="0,-13,0,0"/>
+
+                <Label Text="Revisa tu correo y"
+                       FontSize="15"
+                       HorizontalOptions="Center"
+                       Margin="0,20,0,0"/>
+
+                <Label Text="escribe el código recibido"
+                       FontSize="15"
+                       HorizontalOptions="Center"
+                       Margin="0,0,0,10"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Frame Grid.Row="1"
+               BackgroundColor="#576b43"
+               CornerRadius="45"
+               Padding="20"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="Fill"
+               HeightRequest="420"
+               Margin="20,0,20,10">
+
+            <StackLayout VerticalOptions="FillAndExpand" Padding="10">
+
+                <Label Text="Código de verificación"
+                       TextColor="White"
+                       FontSize="18"
+                       HorizontalOptions="Center"/>
+
+                <!-- Cajas de entrada del código -->
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Center"
+                             Margin="10,20,10,0">
+                    <Entry x:Name="Code1" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
+                           HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
+                           />
+                    <Entry x:Name="Code2" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
+                           HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
+                           />
+                    <Entry x:Name="Code3" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
+                           HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
+                           />
+                    <Entry x:Name="Code4" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
+                           HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
+                           />
+                    <Entry x:Name="Code5" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
+                           HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
+                           />
+                    <Entry x:Name="Code6" MaxLength="1" WidthRequest="40" Keyboard="Numeric"
+                           HorizontalTextAlignment="Center" FontSize="24" BackgroundColor="Transparent"
+                           />
+                </StackLayout>
+
+                <Button Text="Confirmar Código"
+                        TextColor="White"
+                        FontSize="16"
+                        CornerRadius="40"
+                        HeightRequest="60"
+                        BackgroundColor="#7a9255"
+                        Clicked="ConfirmarCodigo_Clicked"
+                        Margin="0,20,0,0"/>
+
+                <!-- Mensaje de error -->
+                <Label x:Name="ErrorLabel"
+                       TextColor="Red"
+                       FontSize="14"
+                       HorizontalOptions="Center"
+                       IsVisible="False"
+                       Margin="0,5,0,0"/>
+
+                <!-- Reenviar Código -->
+                <Label Text="Reenviar Código"
+                       Margin="0,20,0,0"
+                       HorizontalTextAlignment="Center"
+                       TextColor="White"
+                       TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ReenviarCodigoCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <!-- Mensaje de éxito -->
+                <Label Text="{Binding MensajeExito}"
+                TextColor="LightGreen"
+                FontSize="14"
+                HorizontalOptions="Center"
+                Margin="0,5,0,0"
+                IsVisible="{Binding MensajeExito, Converter={StaticResource StringNotEmptyConverter}}" />
+
+                <!-- Mensaje de error -->
+                <Label Text="{Binding MensajeError}"
+                TextColor="Salmon"
+                FontSize="14"
+                HorizontalOptions="Center"
+                Margin="0,2,0,0"
+                IsVisible="{Binding MensajeError, Converter={StaticResource StringNotEmptyConverter}}" />
+
+                <!-- Volver al inicio de sesión -->
+                <Label Text="Volver al inicio de sesión"
+                       Margin="0,10,0,0"
+                       HorizontalTextAlignment="Center"
+                       TextColor="White"
+                       TextDecorations="Underline">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding IrLoginCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

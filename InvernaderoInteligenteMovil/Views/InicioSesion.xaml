@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InvernaderoInteligenteMovil.Views.InicioSesion"
+             Title="InicioSesion"
+             NavigationPage.HasNavigationBar="False">
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Image Source="https://imgfz.com/i/UwYnG3r.png" HeightRequest="200" Margin="0,0,0,5"/>
+
+            <Label Text="Invernadero"
+                   FontSize="50" 
+                   TextColor="#2a4808"
+                   FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand"
+                   Margin="0,0,0,-10"/>
+
+            <Label Text="APP MÓVIL"
+                   FontSize="30"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,50"/>
+
+            <!-- Campo Email -->
+            <Frame Padding="10" CornerRadius="50" BorderColor="Black">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/XbLD5ue.png"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           WidthRequest="20"
+                           HeightRequest="20" 
+                           Margin="10,0,0,0"/>
+
+                    <Entry x:Name="EmailEntry"
+                           Placeholder="Email"
+                           Keyboard="Email"
+                           TextColor="Black"
+                           PlaceholderColor="Black"
+                           HeightRequest="50"
+                           Margin="30,0,0,0"
+                           Text="{Binding Email}"/>
+                </Grid>
+            </Frame>
+
+            <!-- Campo Contraseña -->
+            <Frame Padding="10" CornerRadius="50" BorderColor="Black">
+                <Grid ColumnDefinitions="*,Auto">
+
+                    <Image Source="https://imgfz.com/i/nRaJuh9.png"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           HeightRequest="20"
+                           WidthRequest="20"
+                           Margin="10,0,0,0"/>
+
+                    <Entry x:Name="PasswordEntry"
+                    Placeholder="Contraseña"
+                    IsPassword="{Binding IsPasswordVisible}"
+                    TextColor="Black"
+                    PlaceholderColor="Black"
+                    HeightRequest="50"                    
+                    Margin="30,0,0,0"
+                    Text="{Binding Contrasena}"/>
+
+                    <!-- Botón para mostrar u ocultar contraseña -->
+                    <ImageButton x:Name="EyeButton"
+                                 Source="{Binding EyeIcon}"
+                                 Command="{Binding TogglePasswordCommand}"
+                                 BackgroundColor="Transparent"
+                                 HorizontalOptions="End"
+                                 WidthRequest="30"
+                                 HeightRequest="30"
+                                 Margin="0,0,10,0"/>
+
+                </Grid>
+            </Frame>
+
+            <Button
+                    Margin="0,10,0,10"
+                    Padding="20,10"
+                    HorizontalOptions="Center"
+                    WidthRequest="200"
+                    Text="Iniciar Sesión"
+                    BackgroundColor="#576b43"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    Command="{Binding LoginCommand}"
+                    CornerRadius="25"/>
+
+            <!-- Mensaje de error -->
+            <Label x:Name="ErrorMessage"
+            Text="{Binding MensajeError}"
+            TextColor="Red"
+            FontSize="14"
+            IsVisible="{Binding MensajeError, Converter={StaticResource StringToVisibilityConverter}}"
+            HorizontalOptions="Center"/>
+
+            <Label Text="¿Olvidaste tu contraseña?"
+                   TextDecorations="Underline"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,10,0,10">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding RecuperarContrasenaCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Label Text="Crear cuenta"
+                   TextDecorations="Underline"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,-10,0,10">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding CrearCuentaCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
