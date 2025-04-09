@@ -9,19 +9,19 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
 
-            <Image Source="https://imgfz.com/i/UwYnG3r.png" HeightRequest="200" Margin="0,0,0,5"/>
+            <Image Source="https://imgfz.com/i/UwYnG3r.png" HeightRequest="200" Margin="0,0,0,-10"/>
 
             <Label Text="Invernadero"
                    FontSize="50" 
                    TextColor="#2a4808"
                    FontAttributes="Bold"
                    HorizontalOptions="CenterAndExpand"
-                   Margin="0,0,0,-10"/>
+                   Margin="0,0,0,0"/>
 
             <Label Text="APP MÓVIL"
                    FontSize="30"
                    HorizontalOptions="Center"
-                   Margin="0,0,0,50"/>
+                   Margin="0,0,0,25"/>
 
             <!-- Campo Email -->
             <Frame Padding="10" CornerRadius="50" BorderColor="Black">
@@ -78,7 +78,7 @@
             </Frame>
 
             <Button
-                    Margin="0,10,0,10"
+                    Margin="0,-10,0,10"
                     Padding="20,10"
                     HorizontalOptions="Center"
                     WidthRequest="200"
@@ -94,13 +94,13 @@
             Text="{Binding MensajeError}"
             TextColor="Red"
             FontSize="14"
-            IsVisible="{Binding MensajeError, Converter={StaticResource StringToVisibilityConverter}}"
+            IsVisible="{Binding MensajeError}"
             HorizontalOptions="Center"/>
 
             <Label Text="¿Olvidaste tu contraseña?"
                    TextDecorations="Underline"
                    HorizontalTextAlignment="Center"
-                   Margin="0,10,0,10">
+                   Margin="0,0,0,10">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding RecuperarContrasenaCommand}"/>
                 </Label.GestureRecognizers>
@@ -109,7 +109,7 @@
             <Label Text="Crear cuenta"
                    TextDecorations="Underline"
                    HorizontalTextAlignment="Center"
-                   Margin="0,-10,0,10">
+                   Margin="0,-15,0,15">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding CrearCuentaCommand}"/>
                 </Label.GestureRecognizers>

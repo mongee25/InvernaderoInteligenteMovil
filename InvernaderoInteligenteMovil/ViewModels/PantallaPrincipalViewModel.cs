@@ -22,7 +22,7 @@ namespace InvernaderoInteligenteMovil.ViewModels
     public class PantallaPrincipalViewModel : BaseViewModel
     {
         private readonly HttpClient _httpclient;
-        public const string ApiUrlConsultarInvernaderos = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Invernadero/ListarInvernaderos";
+        public const string ApiUrlConsultarInvernaderos = "https://3j8hk6ww-5148.usw3.devtunnels.ms/api/Invernadero/ListarInvernaderos";
 
         private string _nombreCompleto;
         private bool _isRefreshing;

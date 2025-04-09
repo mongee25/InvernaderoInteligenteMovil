@@ -16,7 +16,7 @@ namespace InvernaderoInteligenteMovil.ViewModels
     public class InicioSesionViewModel : BaseViewModel
     {
         private readonly HttpClient _httpClient;
-        private const string ApiURL = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Usuario/Login";
+        private const string ApiURL = "https://3j8hk6ww-5148.usw3.devtunnels.ms/api/Usuario/Login";
 
         private string _email;
         private string _contrasena;
@@ -29,13 +29,13 @@ namespace InvernaderoInteligenteMovil.ViewModels
 
         public string Email
         {
-            get { return _Msgemail; }
+            get { return _email; }
             set
             {
-                if (_Msgemail != value)
+                if (_email != value)
                 {
-                    _Msgemail = value;
-                    OnPropertyChanged(nameof(MsgEmail));
+                    _email = value;
+                    OnPropertyChanged(nameof(Email));
                 }
             }
         }
@@ -56,35 +56,6 @@ namespace InvernaderoInteligenteMovil.ViewModels
                 EyeIcon = _isPasswordVisible ? "https://imgfz.com/i/iDCskH9.png" : "https://imgfz.com/i/Hp3T2fO.png";
             }
         }
-
-        public string MsgEmail
-        {
-            get { return _Msgemail; }
-            set
-            {
-                if (_Msgemail != value)
-                {
-                    _Msgemail = MsgEmail;
-                    OnPropertyChanged(nameof(MsgEmail));
-                }
-            }
-        }
-
-
-        public string MsgContrasena
-        {
-            get { return _Msgcontrasena; }
-            set
-            {
-                if (_Msgcontrasena != value)
-                {
-                    _Msgcontrasena = value;
-                    OnPropertyChanged(nameof(MsgContrasena));
-                }
-            }
-        }
-
-
 
         public string EyeIcon
         {
