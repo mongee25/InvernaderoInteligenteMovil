@@ -1,12 +1,12 @@
 using InvernaderoInteligenteMovil.ViewModels;
-
+using InvernaderoInteligenteMovil.Views;
 namespace InvernaderoInteligenteMovil.Views;
 
 public partial class DetalleInvernadero : ContentPage
 {
-	public DetalleInvernadero(string nombreInvernadero)
-	{
-		InitializeComponent();
-        BindingContext = new DetalleInvernaderoViewModel(nombreInvernadero);
-    }
+	public DetalleInvernadero () {
+		InitializeComponent ();
+		DetalleInvernaderoViewModel viewmodel = new DetalleInvernaderoViewModel (Navigation);
+		BindingContext = viewmodel;
+	}
 }

@@ -116,14 +116,7 @@ namespace InvernaderoInteligenteMovil.ViewModels
             RefreshCommand = new Command(async () => await ExecuteRefreshCommand());
             _navigation = navigation;
             CargarNombre();
-            VerDetallesCommand = new Command<InvernaderoModel>(async (invernadero) =>
-            {
-                if (invernadero != null && !string.IsNullOrEmpty(invernadero.Nombre))
-                {
-                    // Pasa SOLO el nombre a la página de detalles
-                    await _navigation.PushAsync(new DetalleInvernadero(invernadero.Nombre));
-                }
-            });
+            VerDetallesCommand = new Command (async () => await IrDetalle ());
         }
 
 
@@ -182,5 +175,11 @@ namespace InvernaderoInteligenteMovil.ViewModels
         {
             await _navigation.PushAsync(new AgregarInvernadero(this));
         }
+
+
+    private async Task IrDetalle () 
+    {
+      await _navigation.PushAsync (new DetalleInvernadero ());
+    }
     }
 }

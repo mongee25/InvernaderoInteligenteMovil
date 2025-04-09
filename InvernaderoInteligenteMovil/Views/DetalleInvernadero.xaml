@@ -4,105 +4,134 @@
              x:Class="InvernaderoInteligenteMovil.Views.DetalleInvernadero"
              Title="DetalleInvernadero"
              NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <Style TargetType="Switch">
+            <Setter Property="OnColor" Value="#556B2F" />
+            <!-- Verde olivo -->
+            <Setter Property="ThumbColor" Value="#FFFFFF" />
+            <!-- Botoncito blanco -->
+        </Style>
+    </ContentPage.Resources>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="25" Spacing="20" BackgroundColor="White">
+    <ScrollView Padding="10">
+        <VerticalStackLayout Spacing="25">
 
-            <!-- Header -->
-            <Frame CornerRadius="20" Padding="20" BackgroundColor="#3E5622" HasShadow="True">
-                <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                    <Label Text="Invernadero 1" 
-                           FontSize="32" 
-                           FontAttributes="Bold" 
-                           TextColor="White" 
-                           HorizontalTextAlignment="Center"/>
-                    <Label Text="Tomate" 
-                           FontSize="22" 
-                           TextColor="#B8E986" 
-                           HorizontalTextAlignment="Center"/>
-                </VerticalStackLayout>
+            <!-- Header con curva -->
+            <VerticalStackLayout>
+                <Label Text="Invernadero 1"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="#556B2F"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Imagen -->
+            <Frame HeightRequest="200"
+                   CornerRadius="20"
+                   HasShadow="True"
+                   Padding="0"
+                   BackgroundColor="White"
+                   BorderColor="#556B2F">
+                <Image Source="lechuga.jpg" Aspect="AspectFill"/>
             </Frame>
 
-            <!-- Mapa -->
-            <Frame CornerRadius="25" Padding="0" HasShadow="True" BackgroundColor="#DDE2D0">
-                <Image Source="https://i.ibb.co/4RLPd5yh/UTSmapa.png" Aspect="AspectFill" HeightRequest="250"/>
-            </Frame>
+            <!-- Título + Botón Editar -->
+            <Grid ColumnDefinitions="*,Auto"
+                  Margin="0,0,0,-10">
+                <Label Text="Datos del Ambiente"
+                       FontSize="22"
+                       FontAttributes="Bold"
+                       TextColor="#556B2F"
+                       VerticalOptions="Center"
+                       Grid.Column="0"/>
+                <Button Text="Editar"
+                        FontSize="16"
+                        BackgroundColor="#556B2F"
+                        TextColor="White"
+                        CornerRadius="12"
+                        HeightRequest="35"
+                        Padding="10,0"
+                        Margin="0,0,5,0"
+                        Grid.Column="1"/>
+            </Grid>
 
-            <!-- Ubicación -->
-            <Label Text="UTS, Obregón" 
-                   FontSize="18" 
-                   FontAttributes="Bold"
-                   TextColor="#6D8A55" 
-                   HorizontalTextAlignment="Center"
-                   Padding="0,10,0,20"/>
+            <!-- Datos del ambiente -->
+            <Frame CornerRadius="20"
+                   BackgroundColor="#EEF5E1"
+                   Padding="15"
+                   HasShadow="True"
+                   BorderColor="#6C8064">
+                <Grid ColumnDefinitions="*,*"
+                      RowDefinitions="Auto, Auto"
+                      ColumnSpacing="10">
+                    <!-- Encabezados -->
+                    <Label Text="Temperatura" FontAttributes="Bold" TextColor="#556B2F" HorizontalOptions="Center"/>
+                    <Label Text="Humedad" FontAttributes="Bold" TextColor="#556B2F" Grid.Column="1" HorizontalOptions="Center"/>
+                    <Label Text="Último Riego" FontAttributes="Bold" TextColor="#556B2F" Grid.Column="2" HorizontalOptions="Center"/>
 
-            <!-- Clima -->
-            <Frame CornerRadius="20" Padding="20" BackgroundColor="#5A703D" HasShadow="True" Opacity="0.90">
-                <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto, Auto" ColumnSpacing="40" RowSpacing="20" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="8">
-                        <Image Source="viento_icon.png" WidthRequest="40" HeightRequest="40"/>
-                        <Label Text="Viento" FontSize="16" TextColor="White" HorizontalTextAlignment="Center"/>
-                        <Label Text="5 m/s" FontSize="22" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center"/>
-                    </VerticalStackLayout>
-
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="8">
-                        <Image Source="humedad_icon.png" WidthRequest="40" HeightRequest="40"/>
-                        <Label Text="Humedad" FontSize="16" TextColor="White" HorizontalTextAlignment="Center"/>
-                        <Label Text="20 %" FontSize="22" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center"/>
-                    </VerticalStackLayout>
-
-                    <VerticalStackLayout HorizontalOptions="Center" Spacing="8">
-                        <Image Source="plantas_icon.png" WidthRequest="40" HeightRequest="40"/>
-                        <Label Text="Plantas" FontSize="16" TextColor="White" HorizontalTextAlignment="Center"/>
-                        <Label Text="Tomates" FontSize="22" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center"/>
-                    </VerticalStackLayout>
+                    <!-- Valores -->
+                    <Label Text="24°C" Grid.Row="1" HorizontalOptions="Center"/>
+                    <Label Text="65%" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
+                    <Label Text="4/7/2025" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center"/>
                 </Grid>
             </Frame>
 
             <!-- Controles -->
-            <Frame CornerRadius="25" Padding="20" BackgroundColor="#DDE2D0" HasShadow="True">
-                <VerticalStackLayout Spacing="25">
-                    <Label Text="Controles" FontSize="24" FontAttributes="Bold" TextColor="#3E5622" HorizontalOptions="Center" />
+            <Label Text="Controles Manuales"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="#556B2F"
+                   HorizontalOptions="Center"/>
 
-                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" RowSpacing="20" ColumnSpacing="20">
-                        <!-- Iluminación -->
-                        <Frame x:Name="LightingFrame" CornerRadius="20" Padding="20" BackgroundColor="#5A703D" Opacity="0.95" HasShadow="True" Grid.Row="0" Grid.Column="0">
-                            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                                <Image Source="bombillaencendida.png" HeightRequest="50" WidthRequest="50"/>
-                                <Label Text="Iluminación" TextColor="White" FontSize="16" HorizontalTextAlignment="Center"/>
-                                <Switch x:Name="LightingSwitch"  IsToggled="True"/>
-                            </VerticalStackLayout>
-                        </Frame>
+            <!-- Distribución en 2x2 -->
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="20" RowSpacing="20">
 
-                        <!-- Temperatura -->
-                        <Frame x:Name="TemperatureFrame" CornerRadius="20" Padding="20" BackgroundColor="#5A703D" Opacity="0.95" HasShadow="True" Grid.Row="0" Grid.Column="1">
-                            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                                <Image Source="termometroencendido.png" HeightRequest="50" WidthRequest="50"/>
-                                <Label Text="Temperatura" TextColor="White" FontSize="16" HorizontalTextAlignment="Center"/>
-                                <Switch x:Name="TemperatureSwitch" />
-                            </VerticalStackLayout>
-                        </Frame>
+                <!-- Humedad -->
+                <Frame CornerRadius="15" Padding="10" BackgroundColor="#FFFFFF" HasShadow="True" BorderColor="#556B2F"
+                       Grid.Row="0" Grid.Column="0">
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="Humedad" FontAttributes="Bold" TextColor="#556B2F"/>
+                        <Switch x:Name="HumSwitch1" IsToggled="{Binding EstadoHumedad}"/>
+                    </VerticalStackLayout>
+                </Frame>
 
-                        <!-- Riego -->
-                        <Frame x:Name="WateringFrame" CornerRadius="20" Padding="20" BackgroundColor="#5A703D" Opacity="0.95" HasShadow="True" Grid.Row="1" Grid.Column="0">
-                            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                                <Image Source="riego.png" HeightRequest="50" WidthRequest="50"/>
-                                <Label Text="Riego" TextColor="White" FontSize="16" HorizontalTextAlignment="Center"/>
-                                <Switch x:Name="WateringSwitch" />
-                            </VerticalStackLayout>
-                        </Frame>
+                <!-- Riego -->
+                <Frame CornerRadius="15" Padding="10" BackgroundColor="#FFFFFF" HasShadow="True" BorderColor="#556B2F"
+                       Grid.Row="0" Grid.Column="1">
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="Riego" FontAttributes="Bold" TextColor="#556B2F"/>
+                        <Switch x:Name="RiegoSwitch"/>
+                    </VerticalStackLayout>
+                </Frame>
 
-                        <!-- Ventilación -->
-                        <Frame x:Name="VentilationFrame" CornerRadius="20" Padding="20" BackgroundColor="#5A703D" Opacity="0.95" HasShadow="True" Grid.Row="1" Grid.Column="1">
-                            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                                <Image Source="ventilador.png" HeightRequest="50" WidthRequest="50"/>
-                                <Label Text="Ventilación" TextColor="White" FontSize="16" HorizontalTextAlignment="Center"/>
-                                <Switch x:Name="VentilationSwitch" />
-                            </VerticalStackLayout>
-                        </Frame>
-                    </Grid>
-                </VerticalStackLayout>
-            </Frame>
+                <!-- Luz -->
+                <Frame CornerRadius="15" Padding="10" BackgroundColor="#FFFFFF" HasShadow="True" BorderColor="#556B2F"
+                       Grid.Row="1" Grid.Column="0">
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="Luz" FontAttributes="Bold" TextColor="#556B2F"/>
+                        <Switch x:Name="LuzSwitch" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Temperatura -->
+                <Frame CornerRadius="15" Padding="10" BackgroundColor="#FFFFFF" HasShadow="True" BorderColor="#556B2F"
+                       Grid.Row="1" Grid.Column="1">
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="Temperatura" FontAttributes="Bold" TextColor="#556B2F"/>
+                        <Switch x:Name="TempSwitch"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <!-- Botón Activar Riego -->
+            <Button Text="Activar Riego"
+                    FontSize="16"
+                    BackgroundColor="#556B2F"
+                    TextColor="White"
+                    CornerRadius="20"
+                    HeightRequest="50"
+                    Margin="0,10"
+                    HorizontalOptions="Center"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
