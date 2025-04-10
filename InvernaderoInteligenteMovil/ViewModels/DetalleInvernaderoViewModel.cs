@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 namespace InvernaderoInteligenteMovil.ViewModels {
   public class DetalleInvernaderoViewModel : BaseViewModel {
     private readonly HttpClient _httpClient;
-    private const string ApiURL = "https://3j8hk6ww-5148.usw3.devtunnels.ms/api/Sensor/estado"; // URL para cambiar estado
+    private const string ApiURL = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Sensor/estado"; // URL para cambiar estado
 
     private string _sensorId; // El ID del sensor
     private bool _estadoSensor; // El estado del sensor (true o false)
@@ -27,17 +27,21 @@ namespace InvernaderoInteligenteMovil.ViewModels {
       }
     }
 
-    public bool EstadoSensor {
-      get { return _estadoSensor; }
-      set {
-        if (_estadoSensor != value) {
-          _estadoSensor = value;
-          OnPropertyChanged (nameof (EstadoSensor));
+        public bool EstadoSensor
+        {
+            get { return _estadoSensor; }
+            set
+            {
+                if (_estadoSensor != value)
+                {
+                    _estadoSensor = value;
+                    OnPropertyChanged(nameof(EstadoSensor));
+                    _ = CambiarEstadoSensor(); // Llama al método cuando cambia
+                }
+            }
         }
-      }
-    }
 
-    public string MensajeError {
+        public string MensajeError {
       get => _mensajeError;
       set => SetProperty (ref _mensajeError, value);
     }
@@ -48,40 +52,41 @@ namespace InvernaderoInteligenteMovil.ViewModels {
       _httpClient = new HttpClient ();
       CambiarEstadoSensorCommand = new Command (async () => await CambiarEstadoSensor ());
       _navigation = navigation;
-    }
+      SensorId = "67f45bceaa2788f794bb2105";
+        }
 
-    // Método para cambiar el estado del sensor
+   
     private async Task CambiarEstadoSensor () {
       MensajeError = string.Empty;
 
-      // Validar que SensorId y EstadoSensor no estén vacíos
+    
       if (string.IsNullOrEmpty (SensorId)) {
         MensajeError = "El ID del sensor no puede estar vacío.";
         return;
       }
 
-      // Construir el objeto DTO con los datos necesarios
+    
       var dto = new CambiarEstadoSensorDTO {
-        SensorId = "67f45bceaa2788f794bb2105",
+        SensorId = SensorId,
         Estado = EstadoSensor
       };
-
+            
       var json = JsonSerializer.Serialize (dto);
       var contenido = new StringContent (json, Encoding.UTF8, "application/json");
 
       try {
-        // Realizar la solicitud PUT a la API para cambiar el estado del sensor
+      
         var response = await _httpClient.PutAsync (ApiURL, contenido);
 
         if (response.IsSuccessStatusCode) {
-          // Si la solicitud es exitosa, puedes hacer algo más, por ejemplo, navegar o mostrar un mensaje
+         
           await Application.Current.MainPage.DisplayAlert ("Éxito", "Estado del sensor actualizado correctamente.", "OK");
         } else {
-          // Si la respuesta no es exitosa, mostrar el mensaje de error
+          
           await Application.Current.MainPage.DisplayAlert ("Error", "No se pudo cambiar el estado del sensor.", "OK");
         }
       } catch (Exception ex) {
-        // Manejo de errores en caso de fallos de red o problemas con la API
+      
         MensajeError = "Error al realizar la solicitud: " + ex.Message;
       }
     }

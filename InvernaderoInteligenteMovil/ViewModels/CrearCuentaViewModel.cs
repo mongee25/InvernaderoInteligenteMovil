@@ -17,8 +17,8 @@ namespace InvernaderoInteligenteMovil.ViewModels
     public class CrearCuentaViewModel : BaseViewModel
     {
         private readonly HttpClient _httpclient;
-        private const string ApiurlRegistro = "https://3j8hk6ww-5148.usw3.devtunnels.ms/api/Usuario/RegistrarUsuario";
-        private const string ApiUrlLogin = "https://3j8hk6ww-5148.usw3.devtunnels.ms/api/Usuario/Login";
+        private const string ApiurlRegistro = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Usuario/RegistrarUsuario";
+        private const string ApiUrlLogin = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Usuario/Login";
         private string _nombreCompleto;
         private string _email;
         private string _contrasena;

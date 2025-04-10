@@ -14,7 +14,7 @@ namespace InvernaderoInteligenteMovil.ViewModels
     public class NuevaContasenaViewModel : BaseViewModel
     {
         private readonly HttpClient _httpclient;
-        private const string ApiUrl = "https://3j8hk6ww-5148.usw3.devtunnels.ms/api/Usuario/CambiarContrasena-Email";
+        private const string ApiUrl = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Usuario/CambiarContrasena-Email";
 
 
         private string _nuevaContrasena;

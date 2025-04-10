@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace InvernaderoInteligenteMovil.Models {
   public class InvernaderoModel {
+
+    public string? InvernaderoId { get; set; }
     public string Nombre { get; set; }
     public string NombrePlanta { get; set; }
     public string TipoPlanta { get; set; }
