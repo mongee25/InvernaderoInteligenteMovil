@@ -6,32 +6,55 @@
              NavigationPage.HasNavigationBar="False">
 
     <Grid RowDefinitions="Auto, *, Auto">
-        <!-- Encabezado con nombre y fecha -->
+        <!-- Encabezado con nombre, botón y fecha -->
         <Frame HeightRequest="180"
                CornerRadius="30"
                Margin="0,-20,0,20"
                Padding="20,50,20,20"
                BackgroundColor="#556B2F">
-            <VerticalStackLayout>
+
+            <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto">
                 <!-- Nombre del usuario -->
-                <Label Text="{Binding NombreCompleto}"
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Text="{Binding NombreCompleto}"
                        FontSize="28"
                        TextColor="White"
-                       FontAttributes="Bold"/>
+                       FontAttributes="Bold"
+                       VerticalOptions="Start"/>
+
+                <!-- Botón de cerrar sesión -->
+                <Button Grid.Row="0"
+                        Grid.Column="1"
+                        Text="Cerrar Sesión"
+                        FontSize="14"
+                        TextColor="White"
+                        BackgroundColor="#8F9779"
+                        FontAttributes="Bold"
+                        CornerRadius="20"
+                        Padding="10,5"
+                        Margin="0,0,0,0"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start"
+                        Command="{Binding CerrarSesionCommand}"/>
 
                 <!-- Fecha actual -->
-                <Label Text="{Binding FechaActual}"
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="{Binding FechaActual}"
                        FontSize="14"
-                       TextColor="White"/>
-            </VerticalStackLayout>
+                       TextColor="White"
+                       VerticalOptions="Start"
+                       Margin="0,10,0,0"/>
+            </Grid>
         </Frame>
 
         <!-- Lista de invernaderos con Pull-to-Refresh -->
         <RefreshView Grid.Row="1"
-                    IsRefreshing="{Binding IsRefreshing}"
-                    Command="{Binding RefreshCommand}">
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding RefreshCommand}">
             <CollectionView ItemsSource="{Binding Invernaderos}"
-                           Margin="0,10"
+                            Margin="0,10"
                             x:Name="InvernaderosCollection">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -40,7 +63,7 @@
                                Margin="10"
                                HasShadow="True"
                                BorderColor="#EEF5E1">
-                            <Grid RowDefinitions="150, Auto, Auto, Auto" ColumnDefinitions="*, Auto">
+                            <Grid RowDefinitions="150, Auto, Auto, Auto, Auto" ColumnDefinitions="*, Auto">
                                 <!-- Imagen del invernadero -->
                                 <Image Source="{Binding Imagen}"
                                        Aspect="AspectFill"
@@ -55,7 +78,7 @@
                                        TextColor="#556B2F"
                                        Margin="15,10,15,0"/>
 
-                                <!-- Nombre de la planta (NUEVA POSICIÓN) -->
+                                <!-- Nombre de la planta -->
                                 <Label Grid.Row="2"
                                        Text="{Binding NombrePlanta}"
                                        FontSize="14"
@@ -70,17 +93,46 @@
                                        Margin="15,0,15,10"/>
 
                                 <!-- Botón "Ver Detalles" -->
-                                <Button Grid.Row="3"
-                                        Grid.Column="1"
+                                <Button Grid.Row="4"
+                                        Grid.Column="0"
                                         Text="Ver Detalles"
                                         BackgroundColor="#6B8E23"
                                         TextColor="White"
                                         CornerRadius="10"
-                                        Margin="0,0,10,10"
+                                        Margin="20,6,130,10"
                                         WidthRequest="120"
                                         HeightRequest="40"
                                         Command="{Binding BindingContext.VerDetallesCommand, Source={x:Reference InvernaderosCollection}}"
                                         CommandParameter="{Binding .}"/>
+
+                                <!-- Botones "Editar" y "Eliminar" -->
+                                <StackLayout Grid.Row="4"
+                                             Grid.Column="1"
+                                             Orientation="Horizontal"
+                                             Spacing="5"
+                                             HorizontalOptions="End">
+                                    <!-- Botón "Editar" -->
+                                    <Button Text="Editar"
+                                            BackgroundColor="#FFD700"
+                                            TextColor="White"
+                                            CornerRadius="10"
+                                            WidthRequest="90"
+                                            HeightRequest="40"
+                                            Margin="0,0,5,0"
+                                            Command="{Binding BindingContext.EditarInvernaderoCommand, Source={x:Reference InvernaderosCollection}}"
+                                            CommandParameter="{Binding .}"/>
+
+                                    <!-- Botón "Eliminar" -->
+                                    <Button Text="Eliminar"
+                                            BackgroundColor="#FF6347"
+                                            TextColor="White"
+                                            CornerRadius="10"
+                                            WidthRequest="90"
+                                            HeightRequest="40"
+                                            Margin="0,0,10,0"
+                                            Command="{Binding BindingContext.EliminarInvernaderoCommand, Source={x:Reference InvernaderosCollection}}"
+                                            CommandParameter="{Binding .}"/>
+                                </StackLayout>
                             </Grid>
                         </Frame>
                     </DataTemplate>
@@ -90,7 +142,7 @@
 
         <!-- Botón flotante (+) -->
         <Button Grid.Row="2"
-                Text="+"
+                Text="+" 
                 BackgroundColor="#556B2F"
                 TextColor="White"
                 FontSize="30"

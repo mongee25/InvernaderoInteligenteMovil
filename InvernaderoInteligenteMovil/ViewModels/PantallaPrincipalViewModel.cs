@@ -103,10 +103,16 @@ namespace InvernaderoInteligenteMovil.ViewModels
 
 
         public ICommand AgregarInvernaderoCommand { get; }
+
         public ICommand RefreshCommand { get; }
 
         public ICommand VerDetallesCommand { get; set; }
 
+        public ICommand EliminarInvernaderoCommand { get; }
+
+        public ICommand EditarInvernaderoCommand { get; }
+
+        public ICommand CerrarSesionCommand { get; }
 
 
         public PantallaPrincipalViewModel(INavigation navigation)
@@ -116,7 +122,10 @@ namespace InvernaderoInteligenteMovil.ViewModels
             RefreshCommand = new Command(async () => await ExecuteRefreshCommand());
             _navigation = navigation;
             CargarNombre();
-            VerDetallesCommand = new Command (async () => await IrDetalle ());
+            VerDetallesCommand = new Command<InvernaderoModel>(async (invernadero) => await IrDetalle(invernadero));
+            EliminarInvernaderoCommand = new Command<InvernaderoModel>(async (invernadero) => await EliminarInvernadero(invernadero));
+            EditarInvernaderoCommand = new Command<InvernaderoModel>(async (invernadero) => await EditarInvernadero(invernadero));
+            CerrarSesionCommand = new Command(async () => await CerrarSesion());
         }
 
 
@@ -152,7 +161,7 @@ namespace InvernaderoInteligenteMovil.ViewModels
                 IsRefreshing = false;
             }
         }
-        
+
         public async Task CargarInvernaderos()
         {
             try
@@ -177,9 +186,70 @@ namespace InvernaderoInteligenteMovil.ViewModels
         }
 
 
-    private async Task IrDetalle () 
-    {
-      await _navigation.PushAsync (new DetalleInvernadero ());
-    }
+        // Método para eliminar el invernadero por su nombre
+        private async Task EliminarInvernadero(InvernaderoModel invernadero)
+        {
+            try
+            {
+                // Confirmar antes de eliminar
+                var confirm = await Application.Current.MainPage.DisplayAlert("Confirmar",
+                    $"¿Estás seguro de que deseas eliminar el invernadero {invernadero.Nombre}?", "Sí", "No");
+
+                if (!confirm)
+                    return;
+
+                // Realizar la solicitud DELETE al API usando el nombre del invernadero
+                var response = await _httpclient.DeleteAsync($"https://z7zsd20t-5148.usw3.devtunnels.ms/api/Invernadero/EliminarInvernadero/{invernadero.Nombre}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Eliminar de la lista local solo si la respuesta es exitosa
+                    Invernaderos.Remove(invernadero);
+                    await Application.Current.MainPage.DisplayAlert("Éxito", "Invernadero eliminado correctamente.", "OK");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Hubo un problema al eliminar el invernadero.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error al eliminar invernadero: {ex.Message}", "OK");
+            }
+        }
+
+
+
+        private async Task IrDetalle(InvernaderoModel invernadero)
+        {
+            await _navigation.PushAsync(new DetalleInvernadero(invernadero, this));
+        }
+
+
+
+        private async Task EditarInvernadero(InvernaderoModel invernadero)
+        {
+            if (invernadero != null)
+            {
+                await _navigation.PushAsync(new EditarInvernadero(invernadero, this));
+            }
+        }
+
+
+
+        private async Task CerrarSesion()
+        {
+            var confirm = await Application.Current.MainPage.DisplayAlert("Cerrar sesión", "¿Estás seguro de que quieres cerrar sesión?", "Sí", "No");
+
+            if (!confirm)
+                return;
+
+            AuthService.EliminarToken(); // Borra el token del almacenamiento seguro
+
+            // Redirigir a la página de login
+            Application.Current.MainPage = new NavigationPage(new InicioSesion());
+        }
+
+
     }
 }

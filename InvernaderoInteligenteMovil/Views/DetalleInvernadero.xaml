@@ -18,7 +18,7 @@
 
             <!-- Header con curva -->
             <VerticalStackLayout>
-                <Label Text="Invernadero 1"
+                <Label Text="{Binding Invernadero.Nombre}"
                        FontSize="28"
                        FontAttributes="Bold"
                        TextColor="#556B2F"
@@ -32,7 +32,7 @@
                    Padding="0"
                    BackgroundColor="White"
                    BorderColor="#556B2F">
-                <Image Source="lechuga.jpg" Aspect="AspectFill"/>
+                <Image Source="{Binding Invernadero.Imagen}" Aspect="AspectFill"/>
             </Frame>
 
             <!-- Título + Botón Editar -->
@@ -70,8 +70,8 @@
                     <Label Text="Último Riego" FontAttributes="Bold" TextColor="#556B2F" Grid.Column="2" HorizontalOptions="Center"/>
 
                     <!-- Valores -->
-                    <Label Text="24°C" Grid.Row="1" HorizontalOptions="Center"/>
-                    <Label Text="65%" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
+                    <Label Text="Aqui pon algo" Grid.Row="1" HorizontalOptions="Center"/>
+                    <Label Text="Aqui tambien" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
                     <Label Text="4/7/2025" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center"/>
                 </Grid>
             </Frame>
@@ -91,7 +91,7 @@
                        Grid.Row="0" Grid.Column="0">
                     <VerticalStackLayout HorizontalOptions="Center">
                         <Label Text="Humedad" FontAttributes="Bold" TextColor="#556B2F"/>
-                        <Switch x:Name="HumSwitch1" />
+                        <Switch IsToggled="{Binding EstadoSensorHumedad, Mode=TwoWay}" />
                     </VerticalStackLayout>
                 </Frame>
 
@@ -118,7 +118,7 @@
                        Grid.Row="1" Grid.Column="1">
                     <VerticalStackLayout HorizontalOptions="Center">
                         <Label Text="Temperatura" FontAttributes="Bold" TextColor="#556B2F"/>
-                        <Switch x:Name="TempSwitch" IsToggled="{Binding EstadoSensor, Mode=TwoWay}"/>
+                        <Switch x:Name="TempSwitch" IsToggled="{Binding EstadoSensorTemperatura, Mode=TwoWay}"/>
                     </VerticalStackLayout>
                 </Frame>
             </Grid>

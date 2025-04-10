@@ -1,6 +1,7 @@
 ﻿using InvernaderoInteligenteMovil.Clases;
 using InvernaderoInteligenteMovil.Models;
 using InvernaderoInteligenteMovil.Views;
+using Microsoft.Maui.Controls;
 using System;
 using System.Globalization;
 using System.Net.Http;
@@ -14,7 +15,7 @@ namespace InvernaderoInteligenteMovil.ViewModels
     public class AgregarInvernaderoViewModel : BaseViewModel
     {
         private readonly HttpClient _httpclient;
-        private const string ApiUrlAgregarInvernadero = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Invernadero/CrearInvernadero";
+        private const string ApiUrlAgregarInvernadero = "https://z7zsd20t-5148.usw3.devtunnels.ms/api/Invernadero/AgregarInvernadero";
         private readonly PantallaPrincipalViewModel _pantallaPrincipalViewModel;
 
         private string _nombre;
@@ -132,88 +133,6 @@ namespace InvernaderoInteligenteMovil.ViewModels
             }
         }
 
-        public ICommand AgregarInvernaderoCommand { get; }
-
-        public AgregarInvernaderoViewModel(PantallaPrincipalViewModel pantallaPrincipalViewModel)
-        {
-            _httpclient = new HttpClient();
-            AgregarInvernaderoCommand = new Command(async () => await AgregarInvernadero());
-            _pantallaPrincipalViewModel = pantallaPrincipalViewModel;
-        }
-
-        private async Task AgregarInvernadero()
-        {
-            try
-            {
-                decimal ParseDecimal(string value)
-                {
-                    if (string.IsNullOrEmpty(value)) return 0;
-
-                    // Reemplaza comas por puntos para un parsing consistente
-                    value = value.Replace(",", ".");
-
-                    if (decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal result))
-                        return result;
-
-                    return 0; // Valor por defecto si el parsing falla
-                }
-
-                var NuevoInvernadero = new InvernaderoModel
-                {
-                    Nombre = _nombre,
-                    NombrePlanta = _nombrePlanta,
-                    TipoPlanta = _tipoPlanta,
-                    Imagen = _imagen,
-                    MinTemperatura = ParseDecimal(_minTemperatura),
-                    MaxTemperatura = ParseDecimal(_maxTemperatura),
-                    MinHumedad = ParseDecimal(_minHumedad),
-                    MaxHumedad = ParseDecimal(_maxHumedad)
-                };
-
-                // Configuración para asegurar que el JSON use puntos
-                var options = new JsonSerializerOptions
-                {
-                    NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals,
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    WriteIndented = true
-                };
-
-
-                var Json = JsonSerializer.Serialize(NuevoInvernadero, options);
-                Console.WriteLine($"JSON enviado: {Json}"); // Para depuración
-                var Contenido = new StringContent(Json, Encoding.UTF8, "application/json");
-
-                var Response = await _httpclient.PostAsync(ApiUrlAgregarInvernadero, Contenido);
-                if (Response.IsSuccessStatusCode)
-                {
-                    Application.Current.MainPage.DisplayAlert("Éxito", "Invernadero agregado", "OK");
-                    LimpiarCampos();
-                    await _pantallaPrincipalViewModel.CargarInvernaderos();
-                    Application.Current.MainPage = new NavigationPage(new PantallaPrincipal());
-
-                }
-                else
-                {
-                    Application.Current.MainPage.DisplayAlert("Error", "Fallo en la API", "OK");
-                }
-            }
-            catch (Exception ex)
-            {
-                Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
-            }
-        }
-
-        private void LimpiarCampos()
-        {
-            Nombre = string.Empty;
-            NombrePlanta = string.Empty;
-            TipoPlanta = string.Empty;
-            Imagen = string.Empty;
-            MinTemperatura = string.Empty;
-            MaxTemperatura = string.Empty;
-            MinHumedad = string.Empty;
-            MaxHumedad = string.Empty;
-        }
 
         public string Usuarios
         {
@@ -241,6 +160,106 @@ namespace InvernaderoInteligenteMovil.ViewModels
                     ValidarSensores();
                 }
             }
+        }
+
+
+
+
+
+
+        public ICommand AgregarInvernaderoCommand { get; }
+
+        public AgregarInvernaderoViewModel(PantallaPrincipalViewModel pantallaPrincipalViewModel)
+        {
+            _httpclient = new HttpClient();
+            AgregarInvernaderoCommand = new Command(async () => await AgregarInvernadero());
+            _pantallaPrincipalViewModel = pantallaPrincipalViewModel;
+        }
+
+        private async Task AgregarInvernadero()
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(_nombre))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "El nombre del invernadero es requerido", "OK");
+                    return;
+                }
+
+                var NuevoInvernadero = new InvernaderoModel
+                {
+                    Nombre = _nombre,
+                    NombrePlanta = _nombrePlanta,
+                    TipoPlanta = _tipoPlanta,
+                    Imagen = _imagen,
+                    MinTemperatura = ParseDecimal(_minTemperatura),
+                    MaxTemperatura = ParseDecimal(_maxTemperatura),
+                    MinHumedad = ParseDecimal(_minHumedad),
+                    MaxHumedad = ParseDecimal(_maxHumedad),
+                    Usuarios = ConvertirStringALista(_usuarios),
+                    Sensores = ConvertirStringALista(_sensores)
+                };
+
+                var json = JsonSerializer.Serialize(NuevoInvernadero, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+                var response = await _httpclient.PostAsync(ApiUrlAgregarInvernadero, new StringContent(json, Encoding.UTF8, "application/json"));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Éxito", "Invernadero agregado", "OK");
+                    LimpiarCampos();
+                    await _pantallaPrincipalViewModel.CargarInvernaderos();
+                    Application.Current.MainPage = new NavigationPage(new PantallaPrincipal());
+
+                }
+                else
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    await Application.Current.MainPage.DisplayAlert("Error", $"Error en la API: {errorContent}", "OK");
+                    await Application.Current.MainPage.Navigation.PopAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error: {ex.Message}", "OK");
+            }
+        }
+
+        private List<string> ConvertirStringALista(string input)
+        {
+            return string.IsNullOrWhiteSpace(input)
+                ? new List<string>()
+                : input.Split(',')
+                      .Select(item => item.Trim())
+                      .Where(item => !string.IsNullOrWhiteSpace(item))
+                      .Distinct()
+                      .ToList();
+        }
+
+        private decimal ParseDecimal(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return 0;
+            value = value.Replace(",", ".");
+            return decimal.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal result)
+                ? result
+                : 0;
+        }
+
+        private void LimpiarCampos()
+        {
+            Nombre = string.Empty;
+            NombrePlanta = string.Empty;
+            TipoPlanta = string.Empty;
+            Imagen = string.Empty;
+            MinTemperatura = string.Empty;
+            MaxTemperatura = string.Empty;
+            MinHumedad = string.Empty;
+            MaxHumedad = string.Empty;
+            Usuarios = string.Empty;
+            Sensores = string.Empty;
         }
 
         private void ValidarUsuarios()

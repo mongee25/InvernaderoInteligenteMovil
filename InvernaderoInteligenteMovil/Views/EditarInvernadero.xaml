@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InvernaderoInteligenteMovil.Views.EditarInvernadero"
+             Title="EditarInvernadero">
+
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="10">
+
+            <!-- Header Section -->
+            <Frame BackgroundColor="#576b43"
+                   HeightRequest="325"
+                   CornerRadius="45"
+                   Margin="-2,-40,-2,15"
+                   Padding="0"
+                   HorizontalOptions="Fill">
+                <StackLayout>
+                    <Image Source="https://imgfz.com/i/ujKBGbN.png" HeightRequest="25" Margin="0,60,-420,0"/>
+                    <Image Source="https://imgfz.com/i/gZRFkjf.png" HeightRequest="25" Margin="0,-25,350,0"/>
+                    <Label Text="Edita tu"
+                           TextColor="White"
+                           FontSize="40"
+                           Margin="45,-10,0,0"/>
+                    <Label Text="invernadero"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           FontSize="40"
+                           Margin="45,-10,0,0"/>
+                    <Label Text="favorito"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           FontSize="40"
+                           Margin="45,-10,0,0"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Nombre Invernadero -->
+            <Frame Padding="10" CornerRadius="50" BorderColor="Black" Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/XbLD5ue.png"
+                           VerticalOptions="Center" HorizontalOptions="Start"
+                           WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"/>
+                    <Entry Text="{Binding Invernadero.Nombre}"
+                           Placeholder="Nombre del Invernadero"
+                           PlaceholderColor="Black"
+                           Keyboard="Text"
+                           HeightRequest="50"
+                           Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <!-- Nombre de la Planta -->
+            <Frame Padding="10" CornerRadius="50" BorderColor="Black" Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/oU7f8Np.png"
+                           VerticalOptions="Center" HorizontalOptions="Start"
+                           WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"/>
+                    <Entry Text="{Binding Invernadero.NombrePlanta}"
+                           Placeholder="Nombre de la planta"
+                           PlaceholderColor="Black"
+                           Keyboard="Text"
+                           HeightRequest="50"
+                           Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <!-- Tipo de Planta -->
+            <Frame Padding="10" CornerRadius="50" BorderColor="Black" Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/nRaJuh9.png"
+                           VerticalOptions="Center" HorizontalOptions="Start"
+                           WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"/>
+                    <Entry Text="{Binding Invernadero.TipoPlanta}"
+                           Placeholder="Tipo de planta"
+                           PlaceholderColor="Black"
+                           Keyboard="Text"
+                           HeightRequest="50"
+                           Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <!-- Imagen URL -->
+            <Frame Padding="10" CornerRadius="50" BorderColor="Black" Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/9TrVNFQ.png"
+                           VerticalOptions="Center" HorizontalOptions="Start"
+                           WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"/>
+                    <Entry Text="{Binding Invernadero.Imagen}"
+                           Placeholder="Agregar imagen"
+                           PlaceholderColor="Black"
+                           Keyboard="Url"
+                           HeightRequest="50"
+                           Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <!-- Temperatura Mínima -->
+            <Frame Padding="10" CornerRadius="50" BorderColor="Black" Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/9TrVNFQ.png"
+                           VerticalOptions="Center" HorizontalOptions="Start"
+                           WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"/>
+                    <Entry Text="{Binding Invernadero.MinTemperatura}"
+                           Placeholder="Temperatura mínima (ej. 25.5)"
+                           PlaceholderColor="Black"
+                           Keyboard="Numeric"
+                           HeightRequest="50"
+                           Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <!-- Temperatura Máxima -->
+            <Frame Padding="10" CornerRadius="50" BorderColor="Black" Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/9TrVNFQ.png"
+                           VerticalOptions="Center" HorizontalOptions="Start"
+                           WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"/>
+                    <Entry Text="{Binding Invernadero.MaxTemperatura}"
+                           Placeholder="Temperatura máxima (ej. 30.0)"
+                           PlaceholderColor="Black"
+                           Keyboard="Numeric"
+                           HeightRequest="50"
+                           Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <!-- Humedad Mínima -->
+            <Frame Padding="10" CornerRadius="50" BorderColor="Black" Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/9TrVNFQ.png"
+                           VerticalOptions="Center" HorizontalOptions="Start"
+                           WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"/>
+                    <Entry Text="{Binding Invernadero.MinHumedad}"
+                           Placeholder="Humedad mínima (ej. 60.5)"
+                           PlaceholderColor="Black"
+                           Keyboard="Numeric"
+                           HeightRequest="50"
+                           Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <!-- Humedad Máxima -->
+            <Frame Padding="10" CornerRadius="50" BorderColor="Black" Margin="15,0,15,10">
+                <Grid>
+                    <Image Source="https://imgfz.com/i/9TrVNFQ.png"
+                           VerticalOptions="Center" HorizontalOptions="Start"
+                           WidthRequest="20" HeightRequest="20" Margin="10,0,0,0"/>
+                    <Entry Text="{Binding Invernadero.MaxHumedad}"
+                           Placeholder="Humedad máxima (ej. 80.0)"
+                           PlaceholderColor="Black"
+                           Keyboard="Numeric"
+                           HeightRequest="50"
+                           Margin="30,0,0,0"/>
+                </Grid>
+            </Frame>
+
+            <!-- Botón Actualizar -->
+            <Button Text="Actualizar Invernadero"
+                    Command="{Binding GuardarCambiosCommand}"
+                    BackgroundColor="#576b43"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    Margin="30,20,30,0"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+
+
+</ContentPage>
