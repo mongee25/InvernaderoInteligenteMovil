@@ -99,7 +99,7 @@
                                         BackgroundColor="#6B8E23"
                                         TextColor="White"
                                         CornerRadius="10"
-                                        Margin="20,6,130,10"
+                                        Margin="20,5,30,5"
                                         WidthRequest="120"
                                         HeightRequest="40"
                                         Command="{Binding BindingContext.VerDetallesCommand, Source={x:Reference InvernaderosCollection}}"
@@ -116,9 +116,9 @@
                                             BackgroundColor="#FFD700"
                                             TextColor="White"
                                             CornerRadius="10"
-                                            WidthRequest="90"
+                                            WidthRequest="82"
                                             HeightRequest="40"
-                                            Margin="0,0,5,0"
+                                            Margin="0,0,0,0"
                                             Command="{Binding BindingContext.EditarInvernaderoCommand, Source={x:Reference InvernaderosCollection}}"
                                             CommandParameter="{Binding .}"/>
 
@@ -127,9 +127,9 @@
                                             BackgroundColor="#FF6347"
                                             TextColor="White"
                                             CornerRadius="10"
-                                            WidthRequest="90"
+                                            WidthRequest="82"
                                             HeightRequest="40"
-                                            Margin="0,0,10,0"
+                                            Margin="0,0,12,0"
                                             Command="{Binding BindingContext.EliminarInvernaderoCommand, Source={x:Reference InvernaderosCollection}}"
                                             CommandParameter="{Binding .}"/>
                                 </StackLayout>
